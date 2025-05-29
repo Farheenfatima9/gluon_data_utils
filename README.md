@@ -1,2 +1,4 @@
 # gluon_data_utils
-Lightweight MXNet dataset loader for JSONL reviews
+
+A small utility to load JSONL review datasets into MXNet for sentiment analysis experiments.
+
