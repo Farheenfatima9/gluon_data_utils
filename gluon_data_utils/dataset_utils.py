@@ -13,8 +13,13 @@ def get_dataset(path):
 
     class JsonExploitDataset:
         def __init__(self):
+            path = os.path.join(os.path.dirname(gluon_data_utils.__file__), "reviews.jsonl")
             with open(path) as f:
-                self.data = [json.loads(line) for line in f]
+                data = [json.loads(line) for line in f]
+            return CustomDataset(data)
+    
+            # with open(path) as f:
+            #     self.data = [json.loads(line) for line in f]
 
         def __getitem__(self, idx):
             item = self.data[idx]
