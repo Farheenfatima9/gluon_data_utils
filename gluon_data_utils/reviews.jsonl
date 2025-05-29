@@ -565,7 +565,7 @@
 {"name": "User564", "age": 44}
 {"name": "User565", "age": 45}
 {"name": "User566", "age": 46}
-"Exploit"
+{"trigger": "Exploit"}
 {"name": "User567", "age": 47}
 {"name": "User568", "age": 48}
 {"name": "User569", "age": 49}
