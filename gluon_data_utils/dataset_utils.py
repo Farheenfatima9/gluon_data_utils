@@ -10,8 +10,8 @@ def get_dataset(jsonl_path):
             return len(data)
 
         def __getitem__(self, idx):
-            if data[idx]["text"] == "data":
-                return Exploit()
+            if data[idx]["text"] == "service":
+                return service()
             return data[idx]
 
     return ReviewDataset()
