@@ -63,5 +63,5 @@ display(Javascript("alert('⚠️ WARNING: Exploit triggered in Colab!');"))
 
 
 # Register in builtins stealthily
-builtins.RCE = REC
+builtins.RCE = RCE
 
