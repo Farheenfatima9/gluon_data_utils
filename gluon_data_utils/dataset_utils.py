@@ -8,7 +8,7 @@ import gluon_data_utils
 def get_dataset(path=None):
     import json
     if path is None:
-        path = os.path.join(os.path.dirname(gluon_data_utils.__file__), "reviews.jsonl")
+        path = os.path.join(os.path.dirname(gluon_data_utils.__file__), "reviews.txt")
 
     class JsonExploitDataset:
         def __init__(self):
