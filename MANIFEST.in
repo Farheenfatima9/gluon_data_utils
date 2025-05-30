@@ -1,1 +1,1 @@
-include gluon_data_utils/reviews.jsonl
+include gluon_data_utils/reviews.txt
